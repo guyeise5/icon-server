@@ -7,7 +7,13 @@ const app = express();
 const port = 8080;
 
 app.get('/', (_, res) => {
-    res.send('Hello World!!!');
+    res.send(`<html>
+    <body>
+        <img src='http://localhost:8080/icon/https://github.com/Guyeise1/icon-server/'/>
+        <img src='http://localhost:8080/icon/http://stackoverflow.com'/>
+        <img src='http://localhost:8080/icon/http://google.com'/>
+    </body>
+    </html>`);
 });
 
 // usage: http://localhost:8080/icon/http://google.com
@@ -20,6 +26,7 @@ app.get("/icon/*", cors(), async (req, res) => {
             const buffer = Buffer.from(data.data, "binary")
             res.header("content-type", data.type)
             res.header("content-length", buffer.length + "")
+            res.header('cache-control', `public, max-age=${3 * 24 * 60 * 60}`)
             res.send(buffer)
         } else {
             res.json({ ok: false }).status(400)
