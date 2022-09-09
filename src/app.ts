@@ -1,23 +1,16 @@
 import express from 'express';
 import cors from 'cors'
 import { URL } from 'url';
+import path from 'path';
 import { getIconBinaryData } from './lib/fetchIcon';
 
+const port = Number(process.env.PORT) || 8080;
 const app = express();
-const port = 8080;
+app.use(cors());
 
-app.get('/', (_, res) => {
-    res.send(`<html>
-    <body>
-        <img src='http://localhost:8080/icon/https://github.com/Guyeise1/icon-server/'/>
-        <img src='http://localhost:8080/icon/http://stackoverflow.com'/>
-        <img src='http://localhost:8080/icon/http://google.com'/>
-    </body>
-    </html>`);
-});
-
+// icon api
 // usage: http://localhost:8080/icon/http://google.com
-app.get("/icon/*", cors(), async (req, res) => {
+app.get("/icon/*", async (req, res) => {
     try {
         const url = new URL(req.params[0])
         const data = await getIconBinaryData(url.origin);
@@ -34,6 +27,13 @@ app.get("/icon/*", cors(), async (req, res) => {
     } catch (err: any) {
         res.status(400).json(err)
     }
+});
+
+// serve react build
+app.use(express.static("./react-demo/dist"));
+
+app.use('/', function (req, res) {
+    res.sendFile(path.resolve(`./react-demo/dist/index.html`));
 });
 
 app.listen(port, () => {

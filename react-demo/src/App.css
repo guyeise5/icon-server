@@ -1,0 +1,13 @@
+body {
+  padding-top: 12px;
+}
+
+input, form {
+  margin-bottom: 8px;
+}
+
+img {
+  width: 48px;
+  height: 48px;
+  border: solid 1px #cccccc;
+}
