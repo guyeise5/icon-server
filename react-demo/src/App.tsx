@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import './App.css'
-
 const App = () => {
-    const [iconHost, setIconHost] = useState<string>("http://localhost:8080/icon")
-    const [url, setUrl] = useState<string>("https://google.com")
+    const [iconHost, setIconHost] = useState<string>(`${document.location.origin}/icon`)
+    const [url, setUrl] = useState<string>("https://google.com/")
     const [imageUrl, setImageUrl] = useState<string>("")
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
