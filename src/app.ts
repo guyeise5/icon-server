@@ -8,6 +8,24 @@ const port = Number(process.env.PORT) || 8080;
 const app = express();
 app.use(cors());
 
+// // // Add headers
+// app.use((req, res, next) => {
+//     const origin = req.headers.origin;
+
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', "http://go");
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     res.setHeader('Access-Control-Allow-Credentials', String(true));
+
+//     // Pass to next layer of middleware
+//     if (req.method === 'OPTIONS') {
+//         return res.send(200);
+//     } else {
+//         next();
+//     }
+// });
+
 // icon api
 // usage: http://localhost:8080/icon/http://google.com
 app.get("/icon/*", async (req, res) => {
